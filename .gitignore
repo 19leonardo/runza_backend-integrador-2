@@ -1,0 +1,45 @@
+# Entorno virtual
+venv/
+env/
+ENV/
+
+# Variables de entorno (SECRETOS)
+.env
+.env.local
+.env.*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Modelos de IA (pesados, se descargan aparte)
+pose_landmarker.task
+*.tflite
+*.task
+
+# Logs
+*.log
+logs/
+
+# Archivos temporales
+*.tmp
+*.bak
+
+# Database backups
+*.sql.gz
+*.dump
