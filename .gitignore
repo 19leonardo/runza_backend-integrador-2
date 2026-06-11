@@ -43,3 +43,5 @@ logs/
 # Database backups
 *.sql.gz
 *.dump
+
+uploads/
