@@ -126,3 +126,30 @@ def validar_repeticion(
         puede_completar_ejercicio=puede_completar,
         mensaje=mensaje,
     )
+
+@router.post("/check-position")
+def verificar_posicion(
+    data: dict,
+    current_user: User = Depends(get_current_user),
+):
+    """
+    Verifica solo el ENCUADRE del usuario, sin análisis biomecánico completo.
+    Para usar cuando el usuario está ubicándose antes de empezar.
+    Más rápido que /analyze.
+    """
+    image_base64 = data.get("image_base64", "")
+    if not image_base64:
+        raise HTTPException(400, "Falta image_base64")
+
+    analizador = PoseService.get_analizador()
+    img_bytes = base64.b64decode(image_base64)
+
+    try:
+        encuadre = analizador.solo_validar_encuadre(img_bytes)
+        return encuadre
+    except Exception as e:
+        return {
+            "valido": False,
+            "mensaje_encuadre": f"No se detectó cuerpo: {str(e)}",
+            "ajuste_recomendado": "centrate",
+        }

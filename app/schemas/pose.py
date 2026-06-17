@@ -60,3 +60,28 @@ class RepValidationResponse(BaseModel):
     porcentaje_precision: float
     puede_completar_ejercicio: bool
     mensaje: str
+
+class Landmark(BaseModel):
+    """Punto del cuerpo con coordenadas normalizadas (0 a 1)."""
+    id: int            # 0 a 32 (33 puntos de MediaPipe)
+    x: float           # 0 a 1 (izquierda → derecha)
+    y: float           # 0 a 1 (arriba → abajo)
+    visibility: float  # 0 a 1 (qué tan visible está el punto)
+    estado: str        # "ok" | "atencion" | "error"
+
+
+class Conexion(BaseModel):
+    """Línea entre dos landmarks (segmento del esqueleto)."""
+    desde: int   # id del landmark origen
+    hasta: int   # id del landmark destino
+    estado: str  # "ok" | "atencion" | "error"
+
+
+class EncuadreInfo(BaseModel):
+    """Información sobre la posición del usuario frente a la cámara."""
+    valido: bool                         # si está listo para entrenar
+    cuerpo_completo: bool                # se ve de pies a cabeza
+    vista_lateral: bool                  # está de perfil (recomendado)
+    pies_visibles: bool
+    ajuste_recomendado: Optional[str]    # "alejate" | "acercate" | "ponte_de_lado" | "centrate" | null
+    mensaje_encuadre: str                # mensaje para mostrar al usuario
