@@ -1,0 +1,6 @@
+# Dependencias SOLO para testing / desarrollo.
+# No se instalan en producción (Railway usa requirements.txt únicamente).
+-r requirements.txt
+
+pytest==8.3.4
+pytest-cov==6.0.0
