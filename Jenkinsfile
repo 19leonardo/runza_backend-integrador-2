@@ -68,8 +68,7 @@ pipeline {
 
         stage('Tests con cobertura (pytest)') {
             steps {
-                bat 'venv\\Scripts\\pytest.exe tests/ -v --cov=app --cov-report=term-missing --cov-report=xml --junitxml=pytest-report.xml'
-            }
+                bat 'venv\\Scripts\\python.exe -m pytest tests/ -v --cov=app --cov-report=term-missing --cov-report=xml --junitxml=pytest-report.xml'            }
         }
     }
 
