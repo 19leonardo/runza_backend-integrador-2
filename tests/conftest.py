@@ -17,7 +17,7 @@ import pytest
 from sqlalchemy import text
 from fastapi.testclient import TestClient
 
-from app.db.base import Base, engine
+from app.core.database import Base, engine
 from app.main import app  # al importar app.main ya se registran todos los modelos
 
 client = TestClient(app)
