@@ -1,5 +1,4 @@
 import base64
-from app.services.pose_service import PoseService
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.core.database import get_db
@@ -14,6 +13,7 @@ from app.schemas.pose import (
 from app.services.pose_service import (
     decode_base64_image,
     analizar_imagen_sentadilla,
+    solo_validar_encuadre,
 )
 
 router = APIRouter()
@@ -143,11 +143,10 @@ def verificar_posicion(
     if not image_base64:
         raise HTTPException(400, "Falta image_base64")
 
-    analizador = PoseService.get_analizador()
     img_bytes = base64.b64decode(image_base64)
 
     try:
-        encuadre = analizador.solo_validar_encuadre(img_bytes)
+        encuadre = solo_validar_encuadre(img_bytes)
         return encuadre
     except Exception as e:
         return {
